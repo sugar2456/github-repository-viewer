@@ -3,11 +3,10 @@ FROM node:23-slim
 WORKDIR /app
 
 RUN adduser --disabled-password --gecos "" user
-COPY package.json package-lock.json ./
 RUN chown -R user:user /app
-
 USER user
 
+COPY --chown=user:user package.json package-lock.json ./
 RUN npm install
 
-COPY . .
+COPY --chown=user:user . .
