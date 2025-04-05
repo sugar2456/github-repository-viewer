@@ -12,7 +12,16 @@
 	"remoteUser": "node",
 	"mounts": [
 		"source=/home/butterfly/source/github-repository-viewer,target=/app,type=bind"
-	]
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint",
+				"oderwat.indent-rainbow"
+			]
+		}
+	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},

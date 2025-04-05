@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 開発環境整備
 
-## Getting Started
+前提条件：vscodeとdockerがインストール済みであること
+vscodeは拡張機能のdev containerをインストール済みであること
 
-First, run the development server:
+## ソースコードの取得
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+gh repo clone sugar2456/github-repository-viewer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## コンテナの立ち上げ
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+プロジェクトのルートでvscodeを立ち上げる
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+cd github-repository-viewer
+code .
+```
 
-## Learn More
+devコンテナの機能で「コンテナを再度開く」を選択して、
+開発コンテナを開く
 
-To learn more about Next.js, take a look at the following resources:
+# サーバの立ち上げ
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+開発サーバを立ち上げる
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
+本番ビルドでサーバを立ち上げる
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npm run build
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## テストコード
+
+単体テストコードとコンポーネントテストが実施される
+
+```
+npm run test
+```
+
+end-to-endのテストが実施される
+
+```
+npm run dev
+# 新しくコンソールを立ち上げて
+npx playwright test
+```
+
