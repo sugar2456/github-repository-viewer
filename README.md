@@ -49,6 +49,6 @@ end-to-endのテストが実施される
 ```
 npm run dev
 # 新しくコンソールを立ち上げて
-npx playwrite test
+npx playwright test
 ```
 
