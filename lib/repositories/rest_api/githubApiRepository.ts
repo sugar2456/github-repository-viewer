@@ -1,6 +1,7 @@
 import { Octokit } from "octokit";
 import GithubApiRepositoryInterface from "../interfaces/githubApiRepositoryInterface";
 import SearchResult from "../responses/searchResult";
+import RepositoryDetailResult from "../responses/repositoryDetailResult";
 
 class GithubApiRepository implements GithubApiRepositoryInterface {
   private githubApi: Octokit;
@@ -42,6 +43,36 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
     });
 
     return returenData;
+  }
+
+  async getRepositoryDetails(
+    owner: string,
+    repo: string,
+  ): Promise<RepositoryDetailResult> {
+    const response = await this.githubApi.rest.repos.get({
+      owner: owner,
+      repo: repo,
+    });
+    if (response.status !== 200) {
+      throw new Error(
+        `ステータスコード: ${response.status}`,
+      );
+    }
+    const repositoryDetail = new RepositoryDetailResult(
+      response.data.id,
+      response.data.name,
+      response.data.full_name,
+      response.data.description ?? '',
+      response.data.owner?.login ?? '',
+      response.data.stargazers_count,
+      response.data.forks_count,
+      response.data.open_issues_count,
+      response.data.language ?? '',
+      response.data.owner?.avatar_url ?? '',
+      new Date(response.data.created_at),
+      new Date(response.data.updated_at),
+    );
+    return repositoryDetail;
   }
 }
 export default GithubApiRepository;

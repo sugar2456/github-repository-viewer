@@ -1,6 +1,6 @@
 class RepositoryDetailResult {
   constructor(
-    public id: string,
+    public id: number,
     public name: string,
     public fullName: string,
     public description: string,
@@ -14,3 +14,4 @@ class RepositoryDetailResult {
     public updatedAt: Date
   ) {}
 }
+export default RepositoryDetailResult;
