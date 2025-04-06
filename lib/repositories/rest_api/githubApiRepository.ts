@@ -36,7 +36,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
         `itemsが取得できませんでした。`,
       );
     }
-    const returenData = response.data.items.map((item) => {
+    const returnData = response.data.items.map((item) => {
       const repository = new SearchResult(
         item.id,
         item.name,
