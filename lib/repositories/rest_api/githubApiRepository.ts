@@ -47,7 +47,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
       return repository;
     });
 
-    return returenData;
+    return returnData;
   }
 
   async getRepositoryDetails(
