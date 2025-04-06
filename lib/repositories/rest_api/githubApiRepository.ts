@@ -5,8 +5,8 @@ import RepositoryDetailResult from "../responses/repositoryDetailResult";
 
 class GithubApiRepository implements GithubApiRepositoryInterface {
   private githubApi: Octokit;
-  constructor() {
-    this.githubApi = new Octokit({
+  constructor(octokitInstance?: Octokit) {
+    this.githubApi = octokitInstance || new Octokit({
       auth: process.env.GITHUB_API_KEY,
     });
   }
@@ -24,6 +24,11 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
     if (response.status !== 200) {
       throw new Error(
         `ステータスコード: ${response.status}`,
+      );
+    }
+    if (!response.data || Object.keys(response.data).length === 0) {
+      throw new Error(
+        `データが取得できませんでした。`,
       );
     }
     if(!response.data.items || response.data.items.length === 0) {
@@ -56,6 +61,11 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
     if (response.status !== 200) {
       throw new Error(
         `ステータスコード: ${response.status}`,
+      );
+    }
+    if (!response.data || Object.keys(response.data).length === 0) {
+      throw new Error(
+        `データが取得できませんでした。`,
       );
     }
     const repositoryDetail = new RepositoryDetailResult(
