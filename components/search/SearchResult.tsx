@@ -23,7 +23,7 @@ export default function SearchResults({
             key={result.id}
             className="p-4 bg-white shadow-md rounded-lg mb-4"
           >
-            <h2 className="text-xl font-bold">{result.repositoryName}</h2>
+            <h2 className="text-xl font-bold break-words">{result.repositoryFullName}</h2>
             <p className="text-gray-600">
               {result.description || "No description available"}
             </p>
