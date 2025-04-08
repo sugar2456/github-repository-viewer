@@ -65,14 +65,14 @@ describe("GitHubApiRepository テスト", () => {
       1,
       10
     );
-    const expected = [
-      new SearchResult(
-        1,
-        "test-repo",
-        "test-owner/test-repo",
-        "A test repository",
-        "https://example.com/avatar.png"
-      ),
+    const expected: SearchResult[] = [
+      {
+        id: 1,
+        repositoryName: "test-repo",
+        repositoryFullName: "test-owner/test-repo",
+        description: "A test repository",
+        ownerIconUrl: "https://example.com/avatar.png"
+      },
     ];
 
     expect(actual).toEqual(expected);

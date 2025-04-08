@@ -37,13 +37,13 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
       );
     }
     const returnData = response.data.items.map((item) => {
-      const repository = new SearchResult(
-        item.id,
-        item.name,
-        item.full_name,
-        item.description ?? '',
-        item.owner?.avatar_url ?? '',
-      );
+      const repository: SearchResult = {
+        id: item.id,
+        repositoryName: item.name,
+        repositoryFullName: item.full_name, 
+        description: item.description ?? '',
+        ownerIconUrl: item.owner?.avatar_url ?? '',
+      };
       return repository;
     });
 

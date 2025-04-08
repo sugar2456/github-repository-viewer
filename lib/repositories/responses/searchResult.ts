@@ -1,10 +1,8 @@
-class SearchResult {
-  constructor(
-    public id: number,
-    public repositoryName: string,
-    public repositoryFullName: string,
-    public description: string,
-    public ownerIconUrl: string,
-  ) {}
+interface SearchResult {
+  id: number,
+  repositoryName: string,
+  repositoryFullName: string,
+  description: string,
+  ownerIconUrl: string,
 }
 export default SearchResult;
