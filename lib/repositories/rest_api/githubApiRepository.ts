@@ -68,20 +68,20 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
         `データが取得できませんでした。`,
       );
     }
-    const repositoryDetail = new RepositoryDetailResult(
-      response.data.id,
-      response.data.name,
-      response.data.full_name,
-      response.data.description ?? '',
-      response.data.owner?.login ?? '',
-      response.data.stargazers_count,
-      response.data.forks_count,
-      response.data.open_issues_count,
-      response.data.language ?? '',
-      response.data.owner?.avatar_url ?? '',
-      new Date(response.data.created_at),
-      new Date(response.data.updated_at),
-    );
+    const repositoryDetail: RepositoryDetailResult = {
+      id: response.data.id,
+      name: response.data.name,
+      fullName: response.data.full_name,
+      description: response.data.description ?? '',
+      ownerName: response.data.owner?.login ?? '',
+      stars: response.data.stargazers_count,
+      forks: response.data.forks_count,
+      issues: response.data.open_issues_count,
+      language: response.data.language ?? '',
+      ownerIconUrl: response.data.owner?.avatar_url ?? '',
+      createdAt: new Date(response.data.created_at),
+      updatedAt: new Date(response.data.updated_at),
+    };
     return repositoryDetail;
   }
 }

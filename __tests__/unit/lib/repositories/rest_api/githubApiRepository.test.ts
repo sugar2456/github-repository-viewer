@@ -142,20 +142,20 @@ describe("GitHubApiRepository テスト", () => {
       "test-owner",
       "test-repo"
     );
-    const expected = new RepositoryDetailResult(
-      1,
-      "test-repo",
-      "test-owner/test-repo",
-      "A test repository",
-      "test-owner",
-      100,
-      50,
-      10,
-      "JavaScript",
-      "https://example.com/avatar.png",
-      new Date("2023-01-01T00:00:00Z"),
-      new Date("2023-01-01T00:00:00Z")
-    );
+    const expected: RepositoryDetailResult = {
+      id: 1,
+      name: "test-repo",
+      fullName: "test-owner/test-repo",
+      description: "A test repository",
+      ownerName: "test-owner",
+      stars: 100,
+      forks: 50,
+      issues: 10,
+      language: "JavaScript",
+      ownerIconUrl: "https://example.com/avatar.png",
+      createdAt: new Date("2023-01-01T00:00:00Z"),
+      updatedAt: new Date("2023-01-01T00:00:00Z")
+    };
     expect(actual).toEqual(expected);
   });
 
