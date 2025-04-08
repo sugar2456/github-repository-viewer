@@ -1,10 +1,19 @@
-'use client';
-import Form from 'next/form';
+"use client";
 
-export default function SearchForm({ formAction }: { formAction: (formData: FormData) => void }) {
+type SearchFormProps = {
+  onSearch: (formData: FormData) => void;
+};
+
+export default function SearchForm({ onSearch }: SearchFormProps) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    onSearch(formData);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-8">
-      <Form action={formAction} className="w-full max-w-lg">
+      <form onSubmit={handleSubmit} className="w-full max-w-lg">
         <input
           type="text"
           name="q"
@@ -17,7 +26,7 @@ export default function SearchForm({ formAction }: { formAction: (formData: Form
         >
           Search
         </button>
-      </Form>
+      </form>
     </div>
   );
 }
