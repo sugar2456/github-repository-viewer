@@ -5,14 +5,16 @@ import SearchRepositoryAction from "@/actions/search/search_repository_action";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResult";
 import Loading from "@/app/loading";
+import SearchResult from "@/lib/repositories/responses/searchResult";
 
 export default function SearchComponent() {
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   const handleSearch = async (formData: FormData) => {
     setLoading(true);
+
     const query = formData.get("q") as string;
     if (!query) {
       setLoading(false);
@@ -21,7 +23,7 @@ export default function SearchComponent() {
   
     const data = await SearchRepositoryAction(formData);
   
-    setResults((prevResults) => [...prevResults, ...data]);
+    setResults(data);
     setLoading(false);
   };
 
