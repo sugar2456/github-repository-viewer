@@ -23,6 +23,16 @@ const eslintConfig = [
       "**/*.ts",
       "**/*.tsx",
     ],
+    rules: {
+      "no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+      "no-console": "warn",
+    },
   }
 ];
 
