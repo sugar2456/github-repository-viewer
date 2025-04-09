@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function DetailInfo({
   repositoryFullName,
-  langueage,
+  language,
   iconUrl,
 }: {
   repositoryFullName: string;
