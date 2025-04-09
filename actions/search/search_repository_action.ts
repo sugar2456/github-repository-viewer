@@ -2,7 +2,6 @@
 
 import GithubApiRepository from "@/lib/repositories/rest_api/githubApiRepository";
 import GithubService from "@/lib/services/github_service";
-import Repository from "@/lib/repositories/responses/searchResult";
 import SearchResult from "@/lib/repositories/responses/searchResult";
 
 export default async function SearchRepositoryAction(formData: FormData) {
