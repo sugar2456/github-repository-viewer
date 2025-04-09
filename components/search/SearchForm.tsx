@@ -12,7 +12,7 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100 py-8">
+    <div className="flex flex-col items-center justify-center bg-white py-8">
       <form onSubmit={handleSubmit} aria-label="検索フォーム" className="w-full max-w-lg">
         <input
           type="text"
