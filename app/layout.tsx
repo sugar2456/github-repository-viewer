@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "github respository viewer",
-  description: "search github respositories",
+  title: "github repository viewer",
+  description: "search github repositories",
 };
 
 export default function RootLayout({
