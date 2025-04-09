@@ -61,6 +61,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
           repositoryName: item.name,
           repositoryFullName: item.full_name,
           description: item.description ?? '',
+          ownerName: item.owner?.login ?? '',
           ownerIconUrl: item.owner?.avatar_url ?? '',
         };
         return repository;
@@ -96,6 +97,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
       description: response.data.description ?? '',
       ownerName: response.data.owner?.login ?? '',
       stars: response.data.stargazers_count,
+      watches: response.data.watchers_count,
       forks: response.data.forks_count,
       issues: response.data.open_issues_count,
       language: response.data.language ?? '',

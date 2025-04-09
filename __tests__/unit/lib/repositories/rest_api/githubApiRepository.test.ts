@@ -1,5 +1,4 @@
 import { describe, it, expect } from "@jest/globals";
-// import { GithubApiRepositoryInterface } from "@/lib/repositories/interfaces/github_api_repository_interface";
 import GithubApiRepository from "@/lib/repositories/rest_api/githubApiRepository";
 import Repository from "@/lib/repositories/responses/repository";
 import SearchResult from "@/lib/repositories/responses/searchResult";
@@ -23,7 +22,10 @@ jest.mock("octokit", () => {
                   name: "test-repo",
                   full_name: "test-owner/test-repo",
                   description: "A test repository",
-                  owner: { avatar_url: "https://example.com/avatar.png" },
+                  owner: {
+                    login: "test-owner",
+                    avatar_url: "https://example.com/avatar.png",
+                  },
                 },
               ],
             },
@@ -46,6 +48,7 @@ jest.mock("octokit", () => {
               },
               stargazers_count: 100,
               forks_count: 50,
+              watchers_count: 0,
               open_issues_count: 10,
               language: "JavaScript",
               created_at: "2023-01-01T00:00:00Z",
@@ -78,6 +81,7 @@ describe("GitHubApiRepository テスト", () => {
         repositoryName: "test-repo",
         repositoryFullName: "test-owner/test-repo",
         description: "A test repository",
+        ownerName: "test-owner",
         ownerIconUrl: "https://example.com/avatar.png",
       },
     ];
@@ -121,7 +125,7 @@ describe("GitHubApiRepository テスト", () => {
         },
       },
     } as unknown as Octokit;
-    
+
     const githubApiRepository = new GithubApiRepository(mockOctokit);
     await expect(
       githubApiRepository.searchRepositories("test-repo", 1, 10)
@@ -161,12 +165,13 @@ describe("GitHubApiRepository テスト", () => {
       description: "A test repository",
       ownerName: "test-owner",
       stars: 100,
+      watches: 0,
       forks: 50,
       issues: 10,
       language: "JavaScript",
       ownerIconUrl: "https://example.com/avatar.png",
       createdAt: new Date("2023-01-01T00:00:00Z"),
-      updatedAt: new Date("2023-01-01T00:00:00Z")
+      updatedAt: new Date("2023-01-01T00:00:00Z"),
     };
     expect(actual).toEqual(expected);
   });
@@ -188,7 +193,7 @@ describe("GitHubApiRepository テスト", () => {
       githubApiRepository.getRepositoryDetails("test-owner", "test-repo")
     ).rejects.toThrow("ステータスコード: 404");
   });
- 
+
   it("getRepositoryDetailsで値が取得できない場合のテスト", async () => {
     const mockOctokit = {
       rest: {
