@@ -61,6 +61,34 @@ describe("StringUtils", () => {
     ]);
   });
 
+  it("parseLinkHeaders 配列三つ", () => {
+    const result = parseLinkHeaders([
+      '<https://api.github.com/user/123>; rel="first"',
+      '<https://api.github.com/user/456>; rel="last"',
+      '<https://api.github.com/user/789>; rel="next"',
+    ]);
+    expect(result).toEqual([
+      { url: "https://api.github.com/user/123", rel: "first" },
+      { url: "https://api.github.com/user/456", rel: "last" },
+      { url: "https://api.github.com/user/789", rel: "next" },
+    ]);
+  });
+  
+  it("parseLinkHeaders 配列4つ", () => {
+    const result = parseLinkHeaders([
+      '<https://api.github.com/user/123>; rel="first"',
+      '<https://api.github.com/user/456>; rel="last"',
+      '<https://api.github.com/user/789>; rel="next"',
+      '<https://api.github.com/user/101>; rel="prev"',
+    ]);
+    expect(result).toEqual([
+      { url: "https://api.github.com/user/123", rel: "first" },
+      { url: "https://api.github.com/user/456", rel: "last" },
+      { url: "https://api.github.com/user/789", rel: "next" },
+      { url: "https://api.github.com/user/101", rel: "prev" },
+    ]);
+  });
+  
   it("parseLinkHeaders 空配列", () => {
     const result = parseLinkHeaders([]);
     expect(result).toEqual([]);
