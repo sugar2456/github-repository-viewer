@@ -1,7 +1,9 @@
 import { Octokit } from "octokit";
 import GithubApiRepositoryInterface from "../interfaces/githubApiRepositoryInterface";
-import SearchResult from "../responses/searchResult";
+import Repository from "../responses/repository";
 import RepositoryDetailResult from "../responses/repositoryDetailResult";
+import SearchResult from "../responses/searchResult";
+import { getQueryParams, parseLinkHeaders, splitString } from "@/lib/utils/string_utils";
 
 class GithubApiRepository implements GithubApiRepositoryInterface {
   private githubApi: Octokit;
@@ -15,7 +17,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
     query: string,
     page: number,
     perPage: number,
-  ): Promise<SearchResult[]> {
+  ): Promise<SearchResult> {
     const response = await this.githubApi.rest.search.repos({
       q: query,
       page: page,
@@ -36,16 +38,35 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
         `itemsが取得できませんでした。`,
       );
     }
-    const returnData = response.data.items.map((item) => {
-      const repository = new SearchResult(
-        item.id,
-        item.name,
-        item.full_name,
-        item.description ?? '',
-        item.owner?.avatar_url ?? '',
-      );
-      return repository;
-    });
+
+    let lastPage = 1;
+    const linkHeader = response.headers.link;
+    // 1ページしかない場合は、リンクヘッダーがない
+    if (!linkHeader) {
+      lastPage = 1;
+    } else {
+      const splitLinks = splitString(linkHeader, ",");
+      const parsedLinks = parseLinkHeaders(splitLinks);
+      const lastPageLink = parsedLinks.find((link) => link.rel === "last");
+      if (lastPageLink) {
+        const queryParams = getQueryParams(lastPageLink.url);
+        lastPage = Number(queryParams.page);
+      }
+    }
+
+    const returnData: SearchResult = {
+      repositories: response.data.items.map((item) => {
+        const repository: Repository = {
+          id: item.id,
+          repositoryName: item.name,
+          repositoryFullName: item.full_name,
+          description: item.description ?? '',
+          ownerIconUrl: item.owner?.avatar_url ?? '',
+        };
+        return repository;
+      }),
+      lastPage: lastPage,
+    };
 
     return returnData;
   }
@@ -68,20 +89,20 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
         `データが取得できませんでした。`,
       );
     }
-    const repositoryDetail = new RepositoryDetailResult(
-      response.data.id,
-      response.data.name,
-      response.data.full_name,
-      response.data.description ?? '',
-      response.data.owner?.login ?? '',
-      response.data.stargazers_count,
-      response.data.forks_count,
-      response.data.open_issues_count,
-      response.data.language ?? '',
-      response.data.owner?.avatar_url ?? '',
-      new Date(response.data.created_at),
-      new Date(response.data.updated_at),
-    );
+    const repositoryDetail: RepositoryDetailResult = {
+      id: response.data.id,
+      name: response.data.name,
+      fullName: response.data.full_name,
+      description: response.data.description ?? '',
+      ownerName: response.data.owner?.login ?? '',
+      stars: response.data.stargazers_count,
+      forks: response.data.forks_count,
+      issues: response.data.open_issues_count,
+      language: response.data.language ?? '',
+      ownerIconUrl: response.data.owner?.avatar_url ?? '',
+      createdAt: new Date(response.data.created_at),
+      updatedAt: new Date(response.data.updated_at),
+    };
     return repositoryDetail;
   }
 }

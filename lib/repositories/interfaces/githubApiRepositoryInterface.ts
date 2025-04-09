@@ -1,12 +1,12 @@
-import SearchResult from "../responses/searchResult";
 import RepositoryDetailResult from "../responses/repositoryDetailResult";
+import SearchResult from "../responses/searchResult";
 
 export default interface GithubApiRepositoryInterface {
   searchRepositories(
     query: string,
     page: number,
     perPage: number,
-  ): Promise<SearchResult[]>;
+  ): Promise<SearchResult>;
 
   getRepositoryDetails(
     owner: string,

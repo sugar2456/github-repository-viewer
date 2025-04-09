@@ -1,10 +1,6 @@
-class SearchResult {
-  constructor(
-    public id: number,
-    public repositoryName: string,
-    public repositoryFullName: string,
-    public description: string,
-    public ownerIconUrl: string,
-  ) {}
+import Repository from './repository';
+
+export default interface SearchResult {
+  lastPage: number;
+  repositories: Repository[];
 }
-export default SearchResult;

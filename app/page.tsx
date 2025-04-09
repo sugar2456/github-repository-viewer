@@ -1,10 +1,7 @@
-import Link from "next/link";
+import SearchComponent from "@/components/search/SearchComponent";
 
 export default function Page() {
   return (
-    <div>
-      <h1>Home</h1>
-      <Link href="/about">About</Link>
-    </div>
+    <SearchComponent />
   );
 }
