@@ -10,7 +10,7 @@ export default function DetailInfo({
   iconUrl: string;
 }) {
   return (
-    <div className="grid grid-cols-3 grid-rows-2 p-4 bg-white shadow-md rounded-lg w-1/2">
+    <div className="grid grid-cols-3 grid-rows-2 p-4 bg-white shadow-md rounded-lg">
       <Image
         src={iconUrl}
         alt={`${repositoryFullName} icon`}
