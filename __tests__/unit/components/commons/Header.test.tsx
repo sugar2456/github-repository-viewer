@@ -16,4 +16,10 @@ describe("Header", () => {
     expect(headerContainer).toHaveClass("bg-green-600");
     expect(headerContainer).toHaveClass("text-white");
   });
+
+  it('ヘッダーのリンクが検索画面のリンクになっている', () => {
+    render(<Header />);
+    const linkElement = screen.getByRole('link', { name: /GitHub Repository Viewer/i });
+    expect(linkElement).toHaveAttribute('href', '/search');
+  });
 });
