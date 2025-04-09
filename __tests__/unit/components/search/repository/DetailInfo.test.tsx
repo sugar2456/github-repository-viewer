@@ -19,7 +19,7 @@ describe("DetailInfo", () => {
     render(
       <DetailInfo
         repositoryFullName={mockRepositoryFullName}
-        langueage={mockLangueage}
+        language={mockLangueage}
         iconUrl={mockIconUrl}
       />
     );

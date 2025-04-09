@@ -25,7 +25,7 @@ export default function RepositoryDetailComponent({
       <div className="col-span-4 row-span-2">
         <DetailInfo
           repositoryFullName={fullName}
-          langueage={language}
+          language={language}
           iconUrl={ownerIconUrl}
         />
       </div>

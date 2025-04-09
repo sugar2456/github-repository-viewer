@@ -6,7 +6,7 @@ export default function DetailInfo({
   iconUrl,
 }: {
   repositoryFullName: string;
-  langueage: string;
+  language: string;
   iconUrl: string;
 }) {
   return (
@@ -22,7 +22,7 @@ export default function DetailInfo({
         <h2 className="text-3xl font-bold pb-4">{repositoryFullName}</h2>
       </div>
       <div className="col-span-2">
-        <p className="text-lg font-semibold">言語: {langueage}</p>
+        <p className="text-lg font-semibold">言語: {language}</p>
       </div>
     </div>
   );

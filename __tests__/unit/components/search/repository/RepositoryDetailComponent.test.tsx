@@ -4,10 +4,10 @@ import RepositoryDetailComponent from "@/components/search/repository/Repository
 
 jest.mock("@/components/search/repository/DetailInfo", () => ({
   __esModule: true,
-  default: ({ repositoryFullName, langueage, iconUrl }: { repositoryFullName: string; langueage: string; iconUrl: string }) => (
+  default: ({ repositoryFullName, language, iconUrl }: { repositoryFullName: string; language: string; iconUrl: string }) => (
     <div>
       <h2>{repositoryFullName}</h2>
-      <p>{langueage}</p>
+      <p>{language}</p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={iconUrl} alt={`${repositoryFullName} icon`} />
     </div>
