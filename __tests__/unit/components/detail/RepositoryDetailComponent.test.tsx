@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import RepositoryDetailComponent from "@/components/detail/RepositoryDetailComponent";
+import RepositoryDetailComponent from "@/components/search/repository/RepositoryDetailComponent";
 
-jest.mock("@/components/detail/DetailInfo", () => ({
+jest.mock("@/components/search/repository/DetailInfo", () => ({
   __esModule: true,
   default: ({ repositoryFullName, langueage, iconUrl }: { repositoryFullName: string; langueage: string; iconUrl: string }) => (
     <div>
@@ -14,7 +14,7 @@ jest.mock("@/components/detail/DetailInfo", () => ({
   ),
 }));
 
-jest.mock("@/components/detail/CountCard", () => ({
+jest.mock("@/components/search/repository/CountCard", () => ({
   __esModule: true,
   default: ({ count, title }: { count: number; title: string }) => (
     <div>

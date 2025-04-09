@@ -1,5 +1,5 @@
 import getRepositoryDetail from "@/actions/search/get_repository_detail";
-import RepositoryDetailComponent from "@/components/detail/RepositoryDetailComponent";
+import RepositoryDetailComponent from "@/components/search/repository/RepositoryDetailComponent";
 
 interface SearchPageProps {
   searchParams: {

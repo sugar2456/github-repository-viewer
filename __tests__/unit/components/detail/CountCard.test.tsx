@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import CountCard from "@/components/detail/CountCard";
+import CountCard from "@/components/search/repository/CountCard";
 
 describe("CountCard", () => {
   it("プロパティが正しくレンダリングされる", () => {
