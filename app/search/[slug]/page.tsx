@@ -10,8 +10,9 @@ interface SearchPageProps {
 export default async function Page({
   searchParams
 }: SearchPageProps) {
-  const repositoryName = searchParams.repositoryName;
-  const ownerName = searchParams.ownerName;
+  const params = await searchParams;
+  const repositoryName = params.repositoryName;
+  const ownerName = params.ownerName;
   const repositoryDetail = await getRepositoryDetail(
     ownerName,
     repositoryName
