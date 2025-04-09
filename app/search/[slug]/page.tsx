@@ -2,10 +2,10 @@ import getRepositoryDetail from "@/actions/search/get_repository_detail";
 import RepositoryDetailComponent from "@/components/search/repository/RepositoryDetailComponent";
 
 interface SearchPageProps {
-  searchParams: {
+  searchParams: Promise<{
     repositoryName: string;
     ownerName: string;
-  };
+  }>;
 }
 export default async function Page({
   searchParams
