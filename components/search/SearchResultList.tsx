@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Loading from "@/app/loading";
 import Repository from "@/lib/repositories/responses/repository";
+import Link from "next/link";
 
 export default function SearchResultsList({
   results,
@@ -54,14 +55,22 @@ export default function SearchResultsList({
         {results.map((result) => (
           <li
             key={result.id}
-            className="p-4 bg-white shadow-md rounded-lg mb-4"
+            className="p-4 bg-white shadow-md rounded-lg mb-4 hover:shadow-lg hover:bg-gray-100 transition-shadow duration-300"
           >
-            <h2 className="text-xl font-bold break-words">
-              {result.repositoryFullName}
-            </h2>
-            <p className="text-gray-600">
-              {result.description || "No description available"}
-            </p>
+            <Link
+              href={{
+                pathname: `/search/${result.id}`,
+                query: { name: result.repositoryFullName },
+              }}
+              className="block"
+            >
+              <h2 className="text-xl font-bold break-words">
+                {result.repositoryFullName}
+              </h2>
+              <p className="text-gray-600">
+                {result.description || "No description available"}
+              </p>
+            </Link>
           </li>
         ))}
       </ul>
