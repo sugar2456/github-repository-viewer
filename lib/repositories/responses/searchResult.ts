@@ -1,8 +1,6 @@
-interface SearchResult {
-  id: number,
-  repositoryName: string,
-  repositoryFullName: string,
-  description: string,
-  ownerIconUrl: string,
+import Repository from './repository';
+
+export default interface SearchResult {
+  lastPage: number;
+  repositories: Repository[];
 }
-export default SearchResult;

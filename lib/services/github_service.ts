@@ -1,6 +1,6 @@
 import RepositoryDetailResult from "../repositories/responses/repositoryDetailResult";
-import SearchResult from "../repositories/responses/searchResult";
 import GithubApiRepositoryInterface from "../repositories/interfaces/githubApiRepositoryInterface";
+import SearchResult from "../repositories/responses/searchResult";
 
 export default class GithubService {
   constructor(
@@ -11,7 +11,7 @@ export default class GithubService {
     query: string,
     page: number,
     perPage: number,
-  ): Promise<SearchResult[]> {
+  ): Promise<SearchResult> {
     const repositories = await this.githubApiRepository.searchRepositories(
       query,
       page,

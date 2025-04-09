@@ -2,6 +2,7 @@
 
 import GithubApiRepository from "@/lib/repositories/rest_api/githubApiRepository";
 import GithubService from "@/lib/services/github_service";
+import Repository from "@/lib/repositories/responses/searchResult";
 import SearchResult from "@/lib/repositories/responses/searchResult";
 
 export default async function SearchRepositoryAction(formData: FormData) {
@@ -9,7 +10,7 @@ export default async function SearchRepositoryAction(formData: FormData) {
   const page = parseInt(formData.get("page") as string, 10) || 1;
 
   const service = new GithubService(new GithubApiRepository());
-  const data: SearchResult[] = await service.searchRepositories(query, page, 30);
+  const data: SearchResult = await service.searchRepositories(query, page, 30);
 
   return data;
 }
