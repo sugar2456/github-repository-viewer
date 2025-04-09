@@ -19,7 +19,7 @@ export default function SearchResultsList({
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !isFetching) {
-          setIsFetching(true); // データ取得中に設定
+          setIsFetching(true);
           fetchMore().finally(() => setIsFetching(false));
         }
       },
