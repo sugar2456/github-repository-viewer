@@ -3,7 +3,7 @@
 import { useState } from "react";
 import SearchRepositoryAction from "@/actions/search/search_repository_action";
 import SearchForm from "./SearchForm";
-import SearchResultsList from "./SearchResult";
+import SearchResultsList from "./SearchResultList";
 import Loading from "@/app/loading";
 import Repository from "@/lib/repositories/responses/repository";
 
