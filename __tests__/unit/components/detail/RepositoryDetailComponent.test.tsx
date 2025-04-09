@@ -26,7 +26,15 @@ jest.mock("@/components/detail/CountCard", () => ({
 
 describe("RepositoryDetailComponent", () => {
   it("DetailInfoコンポーネントが正しくレンダリングされる", () => {
-    render(<RepositoryDetailComponent />);
+    render(<RepositoryDetailComponent
+      fullName="example/repo"
+      language="JavaScript"
+      ownerIconUrl="https://avatars.githubusercontent.com/u/51810157?v=4"
+      stars={100}
+      watchers={50}
+      forks={200}
+      issues={300}
+    />);
 
     // DetailInfoのプロパティが正しく表示されているか確認
     const repositoryName = screen.getByText("example/repo");
@@ -40,12 +48,20 @@ describe("RepositoryDetailComponent", () => {
   });
 
   it("CountCardコンポーネントが正しくレンダリングされる", () => {
-    render(<RepositoryDetailComponent />);
+    render(<RepositoryDetailComponent 
+      fullName="example/repo"
+      language="JavaScript"
+      ownerIconUrl="https://avatars.githubusercontent.com/u/51810157?v=4"
+      stars={100}
+      watchers={50}
+      forks={200}
+      issues={300}
+    />);
 
     // CountCardのプロパティが正しく表示されているか確認
     const starTitle = screen.getByText("Star");
     const starCount = screen.getByText("100");
-    const forkTitle = screen.getByText("Fork");
+    const forkTitle = screen.getByText("Watcher数");
     const forkCount = screen.getByText("50");
     const forkNumberTitle = screen.getByText("Fork数");
     const forkNumberCount = screen.getByText("200");
