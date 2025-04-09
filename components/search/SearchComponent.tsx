@@ -35,7 +35,6 @@ export default function SearchComponent() {
 
   const fetchMore = async () => {
     if (page >= lastPage) {
-      console.log("No more pages to fetch");
       return;
     }
 
