@@ -1,7 +1,32 @@
-export default function Page() {
+import getRepositoryDetail from "@/actions/search/get_repository_detail";
+import RepositoryDetailComponent from "@/components/detail/RepositoryDetailComponent";
+
+interface SearchPageProps {
+  searchParams: {
+    repositoryName: string;
+    ownerName: string;
+  };
+}
+export default async function Page({
+  searchParams
+}: SearchPageProps) {
+  const repositoryName = searchParams.repositoryName;
+  const ownerName = searchParams.ownerName;
+  const repositoryDetail = await getRepositoryDetail(
+    ownerName,
+    repositoryName
+  );
   return (
-    <div className="flex items-center justify-center">
-      <h1>search Page</h1>
+    <div className="flex flex-col items-center justify-center">
+      <RepositoryDetailComponent
+        fullName={repositoryDetail.fullName}
+        language={repositoryDetail.language}
+        ownerIconUrl={repositoryDetail.ownerIconUrl}
+        stars={repositoryDetail.stars}
+        watchers={repositoryDetail.watches}
+        forks={repositoryDetail.forks}
+        issues={repositoryDetail.issues}
+      />
     </div>
   );
 }

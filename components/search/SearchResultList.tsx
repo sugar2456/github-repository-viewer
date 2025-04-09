@@ -60,7 +60,7 @@ export default function SearchResultsList({
             <Link
               href={{
                 pathname: `/search/${result.id}`,
-                query: { name: result.repositoryFullName },
+                query: { ownerName: result.ownerName, repositoryName: result.repositoryName },
               }}
               className="block"
             >
