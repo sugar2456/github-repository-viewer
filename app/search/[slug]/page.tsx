@@ -23,7 +23,7 @@ export default async function Page({
         language={repositoryDetail.language}
         ownerIconUrl={repositoryDetail.ownerIconUrl}
         stars={repositoryDetail.stars}
-        watchers={repositoryDetail.watches}
+        watchers={repositoryDetail.watchers}
         forks={repositoryDetail.forks}
         issues={repositoryDetail.issues}
       />

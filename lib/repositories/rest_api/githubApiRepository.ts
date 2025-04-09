@@ -97,7 +97,7 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
       description: response.data.description ?? '',
       ownerName: response.data.owner?.login ?? '',
       stars: response.data.stargazers_count,
-      watches: response.data.watchers_count,
+      watchers: response.data.watchers_count,
       forks: response.data.forks_count,
       issues: response.data.open_issues_count,
       language: response.data.language ?? '',

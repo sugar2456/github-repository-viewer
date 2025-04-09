@@ -165,7 +165,7 @@ describe("GitHubApiRepository テスト", () => {
       description: "A test repository",
       ownerName: "test-owner",
       stars: 100,
-      watches: 0,
+      watchers: 0,
       forks: 50,
       issues: 10,
       language: "JavaScript",

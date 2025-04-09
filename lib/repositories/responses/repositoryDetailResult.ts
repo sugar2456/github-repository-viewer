@@ -5,7 +5,7 @@ interface RepositoryDetailResult {
   description: string,
   ownerName: string,
   stars: number,
-  watches: number,
+  watchers: number,
   forks: number,
   issues: number,
   language: string,
