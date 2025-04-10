@@ -21,10 +21,16 @@ jobs:
         node-version: '23.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
 
     - name: Build the app
       run: npm run build
 
     - name: Run tests
       run: npm test
+
+    - name: Run Playwright tests
+      run: npx playwright test
