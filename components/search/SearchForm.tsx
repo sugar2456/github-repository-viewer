@@ -1,4 +1,5 @@
 "use client";
+import { isValidRepositoryName } from "@/lib/utils/validation_utils";
 import { useState } from "react";
 
 type SearchFormProps = {
@@ -19,6 +20,10 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
     }
     if (query.length > 256) {
       setError("リポジトリ名は256文字以内で入力してください。");
+      return;
+    }
+    if (!isValidRepositoryName(query)) {
+      setError("リポジトリ名は英数字、ハイフン、アンダースコアのみ使用できます。");
       return;
     }
     setError(null);

@@ -9,7 +9,7 @@
 		"dockerfile": "../Dockerfile"
 	},
 	"workspaceFolder": "/app",
-	"remoteUser": "node",
+	"remoteUser": "root",
 	"mounts": [
 		"source=/home/butterfly/source/github-repository-viewer,target=/app,type=bind"
 	],
@@ -21,10 +21,11 @@
 				"oderwat.indent-rainbow",
 				"bradlc.vscode-tailwindcss",
 				"Orta.vscode-jest",
-				"streetsidesoftware.code-spell-checker"
+				"streetsidesoftware.code-spell-checker",
+				"ms-playwright.playwright"
 			]
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -33,7 +34,7 @@
 	// "forwardPorts": [],
 
 	// Uncomment the next line to run commands after the container is created.
-	// "postCreateCommand": "cat /etc/os-release",
+	"postCreateCommand": "npx playwright install-deps && npx playwright install"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
