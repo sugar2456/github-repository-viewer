@@ -2,10 +2,6 @@ on:
   push:
     branches:
       - main
-  # 動作確認でPRでトリガーするようにする
-  pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
