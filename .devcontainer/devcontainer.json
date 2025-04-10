@@ -9,7 +9,7 @@
 		"dockerfile": "../Dockerfile"
 	},
 	"workspaceFolder": "/app",
-	"remoteUser": "node",
+	"remoteUser": "root",
 	"mounts": [
 		"source=/home/butterfly/source/github-repository-viewer,target=/app,type=bind"
 	],
@@ -21,7 +21,8 @@
 				"oderwat.indent-rainbow",
 				"bradlc.vscode-tailwindcss",
 				"Orta.vscode-jest",
-				"streetsidesoftware.code-spell-checker"
+				"streetsidesoftware.code-spell-checker",
+				"ms-playwright.playwright"
 			]
 		}
 	}
