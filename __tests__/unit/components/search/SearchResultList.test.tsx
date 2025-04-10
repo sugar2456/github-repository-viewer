@@ -32,6 +32,7 @@ describe("SearchResultsList", () => {
         repositoryName: "repo1",
         repositoryFullName: "owner/repo1",
         description: "description1",
+        ownerName: "owner",
         ownerIconUrl: "https://example.com/icon1.png",
       },
       {
@@ -39,6 +40,7 @@ describe("SearchResultsList", () => {
         repositoryName: "repo2",
         repositoryFullName: "owner/repo2",
         description: "description2",
+        ownerName: "owner",
         ownerIconUrl: "https://example.com/icon2.png",
       },
     ];
