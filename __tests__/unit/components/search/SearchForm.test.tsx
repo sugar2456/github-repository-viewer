@@ -9,7 +9,7 @@ describe("SearchForm", () => {
     const inputElement = screen.getByPlaceholderText("リポジトリの名前を検索してください");
     expect(inputElement).toBeInTheDocument();
 
-    const buttonElement = screen.getByRole("button", { name: /search/i });
+    const buttonElement = screen.getByRole("button", { name: /検索/i });
     expect(buttonElement).toBeInTheDocument();
   });
 
@@ -27,5 +27,15 @@ describe("SearchForm", () => {
 
     const formData = mockOnSearch.mock.calls[0][0] as FormData;
     expect(formData.get("q")).toBe("react");
+  });
+
+  it("空のクエリで送信するとエラーメッセージが表示される", () => {
+    render(<SearchForm onSearch={jest.fn()} />);
+
+    const buttonElement = screen.getByRole("button", { name: /検索/i });
+    fireEvent.click(buttonElement);
+
+    const errorMessage = screen.getByText("リポジトリ名を入力してください。");
+    expect(errorMessage).toBeInTheDocument();
   });
 });
