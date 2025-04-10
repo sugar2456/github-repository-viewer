@@ -17,6 +17,10 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
       setError("リポジトリ名を入力してください。");
       return;
     }
+    if (query.length > 256) {
+      setError("リポジトリ名は256文字以内で入力してください。");
+      return;
+    }
     setError(null);
     onSearch(formData);
   };
