@@ -12,8 +12,9 @@ export default class GithubService {
     page: number,
     perPage: number,
   ): Promise<SearchResult> {
+    const queryInName = `${query}+in:name`;
     const repositories = await this.githubApiRepository.searchRepositories(
-      query,
+      queryInName,
       page,
       perPage,
     );

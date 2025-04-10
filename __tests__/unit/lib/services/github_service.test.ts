@@ -40,7 +40,7 @@ describe("GithubService", () => {
 
       // 結果を検証
       expect(githubApiRepositoryMock.searchRepositories).toHaveBeenCalledWith(
-        "test",
+        "test+in:name",
         1,
         10
       );
