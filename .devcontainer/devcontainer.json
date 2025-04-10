@@ -20,7 +20,8 @@
 				"dbaeumer.vscode-eslint",
 				"oderwat.indent-rainbow",
 				"bradlc.vscode-tailwindcss",
-				"Orta.vscode-jest"
+				"Orta.vscode-jest",
+				"streetsidesoftware.code-spell-checker"
 			]
 		}
 	}
