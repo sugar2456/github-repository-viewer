@@ -21,7 +21,7 @@ code .
 vscodeの拡張機能dev containerの機能で「コンテナを再度開く」を選択して、
 開発コンテナを開く
 
-# サーバの立ち上げ
+## サーバの立ち上げ
 
 開発サーバを立ち上げる
 
@@ -34,6 +34,16 @@ npm run dev
 ```
 npm run build
 npm run start
+```
+
+## URL
+
+検索画面URL
+
+ここから検索をする
+
+```
+http://localhost:3000/search
 ```
 
 ## テストコード
