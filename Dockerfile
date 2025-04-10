@@ -23,6 +23,7 @@ USER node
 COPY --from=development /app/package.json /app/package-lock.json ./
 RUN npm ci --only=production
 
+COPY --from=development /app/next.config.ts ./
 COPY --from=development /app/.next ./.next
 COPY --from=development /app/public ./public
 
