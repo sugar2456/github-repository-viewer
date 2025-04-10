@@ -19,8 +19,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           token_format: 'access_token'
-          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
       - name: Docker Auth
         id: docker-auth
