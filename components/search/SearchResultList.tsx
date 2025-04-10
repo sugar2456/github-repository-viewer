@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Loading from "@/app/loading";
 import Repository from "@/lib/repositories/responses/repository";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SearchResultsList({
   results,
@@ -51,7 +52,7 @@ export default function SearchResultsList({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <ul className="mt-6 w-full max-w-lg">
+      <ul className="mt-6 w-full lg:w-2/3 md:w-4/5 px-2">
         {results.map((result) => (
           <li
             key={result.id}
@@ -64,12 +65,21 @@ export default function SearchResultsList({
               }}
               className="block"
             >
-              <h2 className="text-xl font-bold break-words">
-                {result.repositoryFullName}
-              </h2>
-              <p className="text-gray-600">
-                {result.description || "No description available"}
-              </p>
+              <div className="grid grid-cols-3 grid-rows-2 ">
+                <Image
+                  src={result.ownerIconUrl}
+                  alt={`${result.repositoryFullName} icon`}
+                  width={64}
+                  height={64}
+                  className="row-span-2 mx-auto self-center"
+                />
+                <div className="col-span-2">
+                  <h2 className="text-xl font-bold break-words">{result.repositoryFullName}</h2>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-gray-600">{result.description}</p>
+                </div>
+              </div>
             </Link>
           </li>
         ))}

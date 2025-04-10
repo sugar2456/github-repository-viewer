@@ -34,9 +34,10 @@ class GithubApiRepository implements GithubApiRepositoryInterface {
       );
     }
     if(!response.data.items || response.data.items.length === 0) {
-      throw new Error(
-        `itemsが取得できませんでした。`,
-      );
+      return {
+        repositories: [],
+        lastPage: 1,
+      }
     }
 
     let lastPage = 1;

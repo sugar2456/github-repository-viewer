@@ -147,9 +147,11 @@ describe("GitHubApiRepository テスト", () => {
     } as unknown as Octokit;
 
     const githubApiRepository = new GithubApiRepository(mockOctokit);
-    await expect(
-      githubApiRepository.searchRepositories("test-repo", 1, 10)
-    ).rejects.toThrow("itemsが取得できませんでした。");
+    const actual = await githubApiRepository.searchRepositories("test-repo", 1, 10);
+    expect(actual).toEqual({
+      repositories: [],
+      lastPage: 1,
+    });
   });
 
   it("getRepositoryDetailsで値が取得できるかテスト", async () => {

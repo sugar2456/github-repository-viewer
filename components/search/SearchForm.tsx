@@ -1,13 +1,27 @@
 "use client";
+import { useState } from "react";
 
 type SearchFormProps = {
   onSearch: (formData: FormData) => void;
 };
 
 export default function SearchForm({ onSearch }: SearchFormProps) {
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const query = formData.get("q") as string;
+
+    if (!query || query.trim() === "") {
+      setError("リポジトリ名を入力してください。");
+      return;
+    }
+    if (query.length > 256) {
+      setError("リポジトリ名は256文字以内で入力してください。");
+      return;
+    }
+    setError(null);
     onSearch(formData);
   };
 
@@ -24,8 +38,9 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
         >
-          Search
+          検索
         </button>
+        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
       </form>
     </div>
   );
