@@ -11,10 +11,12 @@ on:
   workflow_dispatch:
     inputs:
       ref:
+        type: string
         description: 'Git reference (branch or tag)'
         required: true
         default: 'main'
       environment:
+        type: string
         description: 'Environment to deploy to'
         required: true
         default: 'prod'
