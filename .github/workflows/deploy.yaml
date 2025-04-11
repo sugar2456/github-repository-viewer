@@ -34,10 +34,6 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ vars.REGION }}-docker.pkg.dev'
 
-      - name: Manual Docker Push
-        run: |
-          docker build -t asia-northeast1-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main --target=production .
-          docker push asia-northeast1-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
 
       - name: Test Artifact Registry API
         run: |
