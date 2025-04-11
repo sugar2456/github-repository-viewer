@@ -8,19 +8,6 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-    inputs:
-      ref:
-        type: string
-        description: 'Git reference (branch or tag)'
-        required: true
-        default: 'main'
-      environment:
-        type: string
-        description: 'Environment to deploy to'
-        required: true
-        default: 'prod'
-
 permissions:
   id-token: write
   contents: read
@@ -54,18 +41,18 @@ jobs:
           context: ${{ vars.code_directory }}
           push: true 
           tags: |
-            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}
+            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
 
       - name: Create Service declaration   
         run: |-
-          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}"
+          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main"
           export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
           export PROJECT_ID="${{ vars.PROJECT_ID }}"
-          export REVISION_TAG="${{ inputs.ref }}"
+          export REVISION_TAG="main"
           export CLOUD_RUN_SA="${{ secrets.CLOUD_RUN_SA }}"
-          export ENVIRONMENT="${{ inputs.environment }}"
-          envsubst < ./service-yaml/container.yaml > container-${{ inputs.environment }}.yaml
-          cat container-${{ inputs.environment }}.yaml
+          export ENVIRONMENT="prod"
+          envsubst < ./service-yaml/container.yaml > container-prod.yaml
+          cat container-prod.yaml
 
       - name: Deploy to Cloud Run
         id: deploy
@@ -73,4 +60,4 @@ jobs:
         with:
           service: ${{ vars.service_name }}
           region: ${{ vars.region }}
-          metadata: container-${{ inputs.environment }}.yaml
+          metadata: container-prod.yaml
