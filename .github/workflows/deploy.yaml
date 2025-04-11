@@ -44,13 +44,6 @@ jobs:
           tags: |
             ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
 
-      - name: Create Service declaration   
-        run: |-
-          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main"
-          export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
-          export ENVIRONMENT="prod"
-          export GITHUB_PAT=${{ secrets.GH_PAT }}
-
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v2
@@ -58,3 +51,9 @@ jobs:
           service: ${{ vars.service_name }}
           region: ${{ vars.region }}
           image: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
+          env_vars: |
+            CONTAINER_IMAGE=${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
+            SERVICE_NAME=${{ vars.SERVICE_NAME }}
+            ENVIRONMENT=prod
+          secrets: |
+            GITHUB_API_KEY=${{ secrets.GH_PAT }}
