@@ -48,17 +48,12 @@ jobs:
         run: |-
           export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main"
           export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
-          export PROJECT_ID="${{ vars.PROJECT_ID }}"
-          export REVISION_TAG="main"
-          export CLOUD_RUN_SA="${{ secrets.CLOUD_RUN_SA }}"
           export ENVIRONMENT="prod"
-          envsubst < ./service-yaml/container.yaml > container-prod.yaml
-          cat container-prod.yaml
+          export GITHUB_PAT=${{ secrets.GH_PAT }}
 
       - name: Deploy to Cloud Run
         id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ vars.service_name }}
           region: ${{ vars.region }}
-          metadata: container-prod.yaml
