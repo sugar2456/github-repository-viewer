@@ -57,3 +57,4 @@ jobs:
         with:
           service: ${{ vars.service_name }}
           region: ${{ vars.region }}
+          image: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
