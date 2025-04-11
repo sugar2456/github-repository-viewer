@@ -1,3 +1,4 @@
+name: app deploy
 on:
   push:
     branches:
@@ -6,6 +7,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,7 +24,7 @@ jobs:
 
       - name: Docker Auth
         id: docker-auth
-        uses: 'docker/login-action@v1'
+        uses: 'docker/login-action@v3'
         with:
           username: 'oauth2accesstoken'
           password: '${{ steps.auth.outputs.access_token }}'
@@ -28,28 +32,23 @@ jobs:
 
       - name: Build, tag and push container
         id: build-image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: ${{ vars.code_directory }}
           push: true 
+          target: production
           tags: |
-            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}
-
-      - name: Create Service declaration   
-        run: |-
-          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}"
-          export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
-          export PROJECT_ID="${{ vars.PROJECT_ID }}"
-          export REVISION_TAG="${{ inputs.ref }}"
-          export CLOUD_RUN_SA="${{ secrets.CLOUD_RUN_SA }}"
-          export ENVIRONMENT="${{ inputs.environment }}"
-          envsubst < ./service-yaml/container.yaml > container-${{ inputs.environment }}.yaml
-          cat container-${{ inputs.environment }}.yaml
+            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
 
       - name: Deploy to Cloud Run
         id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ vars.service_name }}
           region: ${{ vars.region }}
-          metadata: container-${{ inputs.environment }}.yaml
+          image: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
+          env_vars: |
+            CONTAINER_IMAGE=${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
+            SERVICE_NAME=${{ vars.SERVICE_NAME }}
+            ENVIRONMENT=prod
+            GITHUB_API_KEY=${{ secrets.GH_PAT }}
