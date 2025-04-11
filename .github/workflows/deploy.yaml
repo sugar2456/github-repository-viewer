@@ -2,7 +2,14 @@ on:
   push:
     branches:
       - main
+  # 動作確認でPRでトリガーするようにする
+  pull_request:
+    branches:
+      - main
 
+permissions:
+  id-token: write
+  contents: read
 jobs:
   deploy:
     runs-on: ubuntu-latest
