@@ -34,6 +34,9 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ vars.REGION }}-docker.pkg.dev'
 
+      - name: Debug Docker Auth
+        run: docker info
+
       - name: Build, tag and push container
         id: build-image
         uses: docker/build-push-action@v3
