@@ -34,20 +34,15 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ vars.REGION }}-docker.pkg.dev'
 
-
-      - name: Test Artifact Registry API
-        run: |
-          curl -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
-            "https://asia-northeast1-docker.pkg.dev/v2/"
-      # - name: Build, tag and push container
-      #   id: build-image
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: ${{ vars.code_directory }}
-      #     push: true 
-      #     target: production
-      #     tags: |
-      #       ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
+      - name: Build, tag and push container
+        id: build-image
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ vars.code_directory }}
+          push: true 
+          target: production
+          tags: |
+            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
 
       - name: Create Service declaration   
         run: |-
