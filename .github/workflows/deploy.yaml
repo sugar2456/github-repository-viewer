@@ -55,5 +55,4 @@ jobs:
             CONTAINER_IMAGE=${{ vars.REGION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:main
             SERVICE_NAME=${{ vars.SERVICE_NAME }}
             ENVIRONMENT=prod
-          secrets: |
             GITHUB_API_KEY=${{ secrets.GH_PAT }}
