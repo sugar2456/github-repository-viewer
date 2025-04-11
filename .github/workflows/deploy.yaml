@@ -8,6 +8,17 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git reference (branch or tag)'
+        required: true
+        default: 'main'
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'prod'
+
 permissions:
   id-token: write
   contents: read
