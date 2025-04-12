@@ -1,4 +1,4 @@
-import getRepositoryDetail from "@/actions/search/get_repository_detail";
+import getRepositoryDetailAction from "@/app/actions/search/get_repository_detail_action";
 import RepositoryDetailComponent from "@/components/search/repository/RepositoryDetailComponent";
 
 interface SearchPageProps {
@@ -13,7 +13,7 @@ export default async function Page({
   const params = await searchParams;
   const repositoryName = params.repositoryName;
   const ownerName = params.ownerName;
-  const repositoryDetail = await getRepositoryDetail(
+  const repositoryDetail = await getRepositoryDetailAction(
     ownerName,
     repositoryName
   );
