@@ -34,6 +34,34 @@ describe("StringUtils", () => {
     );
   });
 
+  it("splitString undefined の場合", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(() => splitString(undefined as any, ",")).toThrow(
+      "入力文字列と区切り文字を指定してください。"
+    );
+  });
+  
+  it("splitString null の場合", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(() => splitString(null as any, ",")).toThrow(
+      "入力文字列と区切り文字を指定してください。"
+    );
+  });
+  
+  it("splitString 区切り文字が undefined の場合", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(() => splitString("test,example", undefined as any)).toThrow(
+      "入力文字列と区切り文字を指定してください。"
+    );
+  });
+  
+  it("splitString 区切り文字が null の場合", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(() => splitString("test,example", null as any)).toThrow(
+      "入力文字列と区切り文字を指定してください。"
+    );
+  });
+
   it("parseLinkHeaders 定義テスト", () => {
     const result = parseLinkHeaders([
       '<https://api.github.com/user/123>; rel="self"',
