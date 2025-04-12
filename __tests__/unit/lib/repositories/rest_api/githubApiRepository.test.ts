@@ -94,6 +94,52 @@ describe("GitHubApiRepository テスト", () => {
     expect(actual).toEqual(expected);
   });
 
+  it("searchRepositoriesでページ数が1の時のテスト", async () => {
+    const mockOctokit = {
+      rest: {
+        search: {
+          repos: jest.fn().mockResolvedValue({
+            status: 200,
+            headers: {
+              // headersのlinkは、ページ数が1の時は存在しない
+            },
+            data: {
+              items: [
+                {
+                  id: 1,
+                  name: "test-repo",
+                  full_name: "test-owner/test-repo",
+                  description: "A test repository",
+                  owner: {
+                    login: "test-owner",
+                    avatar_url: "https://example.com/avatar.png",
+                  },
+                },
+              ],
+            },
+          }),
+        },
+      },
+    } as unknown as Octokit;
+    const githubApiRepository = new GithubApiRepository(mockOctokit);
+    const actual = await githubApiRepository.searchRepositories("test-repo", 1, 10);
+    const repositories: Repository[] = [
+      {
+        id: 1,
+        repositoryName: "test-repo",
+        repositoryFullName: "test-owner/test-repo",
+        description: "A test repository",
+        ownerName: "test-owner",
+        ownerIconUrl: "https://example.com/avatar.png",
+      },
+    ];
+    const expected: SearchResult = {
+      repositories: repositories,
+      lastPage: 1,
+    };
+    expect(actual).toEqual(expected);
+  });
+
   it("searchRepositoriesでステータスコードが200でない場合のテスト", async () => {
     const mockOctokit = {
       rest: {
@@ -154,6 +200,48 @@ describe("GitHubApiRepository テスト", () => {
     });
   });
 
+  it("検索結果のリポジトリにデータの欠損がある場合のテスト", async () => {
+    const mockOctokit = {
+      rest: {
+        search: {
+          repos: jest.fn().mockResolvedValue({
+            status: 200,
+            headers: {
+            },
+            data: {
+              items: [
+                {
+                  id: 1,
+                  name: "test-repo",
+                  full_name: "test-owner/test-repo",
+                  description: null,
+                  owner: null
+                },
+              ],
+            },
+          }),
+        },
+      },
+    } as unknown as Octokit;
+    const githubApiRepository = new GithubApiRepository(mockOctokit);
+    const actual = await githubApiRepository.searchRepositories("test-repo", 1, 10);
+    const repositories: Repository[] = [
+      {
+        id: 1,
+        repositoryName: "test-repo",
+        repositoryFullName: "test-owner/test-repo",
+        description: "",
+        ownerName: "",
+        ownerIconUrl: "",
+      },
+    ];
+    const expected: SearchResult = {
+      repositories: repositories,
+      lastPage: 1,
+    };
+    expect(actual).toEqual(expected);
+  });
+
   it("getRepositoryDetailsで値が取得できるかテスト", async () => {
     const githubApiRepository = new GithubApiRepository();
     const actual = await githubApiRepository.getRepositoryDetails(
@@ -172,6 +260,58 @@ describe("GitHubApiRepository テスト", () => {
       issues: 10,
       language: "JavaScript",
       ownerIconUrl: "https://example.com/avatar.png",
+      createdAt: new Date("2023-01-01T00:00:00Z"),
+      updatedAt: new Date("2023-01-01T00:00:00Z"),
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it("getRepositoryDetailsで一部データに欠損がある場合のテスト", async () => {
+    const mockOctokit = {
+      rest: {
+        repos: {
+          get: jest.fn().mockResolvedValue({
+            status: 200,
+            headers: {
+            },
+            data: {
+              id: 1,
+              name: "test-repo",
+              full_name: "test-owner/test-repo",
+              description: null,
+              owner: {
+                login: null,
+                avatar_url: null,
+              },
+              stargazers_count: 100,
+              forks_count: 50,
+              watchers_count: 0,
+              open_issues_count: 10,
+              language: null,
+              created_at: "2023-01-01T00:00:00Z",
+              updated_at: "2023-01-01T00:00:00Z",
+            },
+          }),
+        },
+      },
+    } as unknown as Octokit;
+    const githubApiRepository = new GithubApiRepository(mockOctokit);
+    const actual = await githubApiRepository.getRepositoryDetails(
+      "test-owner",
+      "test-repo",
+    );
+    const expected: RepositoryDetailResult = {
+      id: 1,
+      name: "test-repo",
+      fullName: "test-owner/test-repo",
+      description: "",
+      ownerName: "",
+      stars: 100,
+      watchers: 0,
+      forks: 50,
+      issues: 10,
+      language: "",
+      ownerIconUrl: "",
       createdAt: new Date("2023-01-01T00:00:00Z"),
       updatedAt: new Date("2023-01-01T00:00:00Z"),
     };
