@@ -18,14 +18,28 @@ beforeAll(() => {
 });
 
 describe("SearchResultsList", () => {
-  it("検索結果がない場合、メッセージが表示される", () => {
-    render(<SearchResultsList results={[]} fetchMore={jest.fn()} />);
-
-    const noResultsMessage = screen.getByText("検索結果がありません。");
-    expect(noResultsMessage).toBeInTheDocument();
+  it("検索結果が正しくレンダリングされる", () => {
+    const results = [
+      {
+        id: 1,
+        repositoryName: "test-repo",
+        repositoryFullName: "user/test-repo",
+        description: "This is a test repository",
+        ownerName: "user",
+        ownerIconUrl: "https://example.com/icon.png",
+      },
+    ];
+  
+    const { getByText, getByAltText } = render(
+      <SearchResultsList results={results} fetchMore={jest.fn()} />
+    );
+  
+    expect(getByText("user/test-repo")).toBeInTheDocument();
+    expect(getByText("This is a test repository")).toBeInTheDocument();
+    expect(getByAltText("user/test-repo icon")).toBeInTheDocument();
   });
 
-  it("検索結果がある場合、リストが正しくレンダリングされる", () => {
+  it("複数の検索結果が正しくレンダリングされる", () => {
     const mockResults: Repository[] = [
       {
         id: 1,
@@ -66,5 +80,10 @@ describe("SearchResultsList", () => {
 
     const noResultsMessage = screen.getByText("検索結果がありません。");
     expect(noResultsMessage).toBeInTheDocument();
+  });
+
+  it("検索結果がない場合の表示", () => {
+    const { getByText } = render(<SearchResultsList results={[]} fetchMore={jest.fn()} />);
+    expect(getByText("検索結果がありません。")).toBeInTheDocument();
   });
 });
