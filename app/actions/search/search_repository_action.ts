@@ -1,5 +1,3 @@
-'use server';
-
 import GithubApiRepository from "@/lib/repositories/rest_api/githubApiRepository";
 import GithubService from "@/lib/services/github_service";
 import SearchResult from "@/lib/repositories/responses/searchResult";

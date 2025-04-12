@@ -1,8 +1,8 @@
-export function splitString(separetedString: string, delimiter: string): string[] {
-  if (!separetedString || !delimiter) {
+export function splitString(separatedString: string, delimiter: string): string[] {
+  if (!separatedString || !delimiter) {
     throw new Error("入力文字列と区切り文字を指定してください。");
   }
-  return separetedString.split(delimiter);
+  return separatedString.split(delimiter);
 }
 
 export function parseLinkHeaders(linkHeaders: string[]): { url: string; rel: string }[] {

@@ -2,7 +2,7 @@ import RepositoryDetailResult from "@/lib/repositories/responses/repositoryDetai
 import GithubApiRepository from "@/lib/repositories/rest_api/githubApiRepository";
 import GithubService from "@/lib/services/github_service";
 
-export default async function getRepositoryDetail(
+export default async function getRepositoryDetailAction(
   owner: string,
   repo: string,
 ): Promise<RepositoryDetailResult> {
