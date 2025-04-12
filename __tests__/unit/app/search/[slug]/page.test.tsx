@@ -57,25 +57,23 @@ describe('Repository Detail Page', () => {
       repositoryName: 'repository',
       ownerName: 'owner'
     });
-
+  
     // コンポーネントをレンダリング
     await render(
       await Page({ searchParams: mockSearchParams })
     );
-
-    // RepositoryDetailComponentが正しいプロパティで呼び出されたことを確認
-    expect(RepositoryDetailComponent).toHaveBeenCalledWith(
-      {
-        fullName: mockRepositoryDetail.fullName,
-        language: mockRepositoryDetail.language,
-        ownerIconUrl: mockRepositoryDetail.ownerIconUrl,
-        stars: mockRepositoryDetail.stars,
-        watchers: mockRepositoryDetail.watchers,
-        forks: mockRepositoryDetail.forks,
-        issues: mockRepositoryDetail.issues,
-      },
-      expect.anything() // Reactコンポーネントのコンテキスト
-    );
+  
+    // mock.callsを使用して最初の呼び出しの第1引数を取得
+    const callArgs = (RepositoryDetailComponent as jest.Mock).mock.calls[0];
+    expect(callArgs[0]).toEqual({
+      fullName: mockRepositoryDetail.fullName,
+      language: mockRepositoryDetail.language,
+      ownerIconUrl: mockRepositoryDetail.ownerIconUrl,
+      stars: mockRepositoryDetail.stars,
+      watchers: mockRepositoryDetail.watchers,
+      forks: mockRepositoryDetail.forks,
+      issues: mockRepositoryDetail.issues,
+    });
   });
 
   it('RepositoryDetailComponentがレンダリングされる', async () => {
